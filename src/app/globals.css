@@ -1,26 +1,228 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-gold-50: #fdf9ed;
+  --color-gold-100: #f9f0d0;
+  --color-gold-200: #f2dea1;
+  --color-gold-300: #e8c86a;
+  --color-gold-400: #e2b96f;
+  --color-gold-500: #c9a84c;
+  --color-gold-600: #b8922d;
+  --color-gold-700: #997526;
+  --color-gold-800: #7d5e24;
+  --color-gold-900: #684e21;
+
+  --color-dark-950: #030303;
+  --color-dark-900: #0a0a0a;
+  --color-dark-800: #111111;
+  --color-dark-700: #1a1a1a;
+  --color-dark-600: #222222;
+  --color-dark-500: #2a2a2a;
+  --color-dark-400: #3a3a3a;
+  --color-dark-300: #525252;
+  --color-dark-200: #737373;
+  --color-dark-100: #a3a3a3;
+  --color-dark-50: #d4d4d4;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 168, 76, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(201, 168, 76, 0); }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #0a0a0a;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
+::selection {
+  background-color: #c9a84c;
+  color: #0a0a0a;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #c9a84c; }
+
+/* Utility classes */
+.gold-text {
+  background: linear-gradient(135deg, #b8922d 0%, #e2b96f 50%, #c9a84c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-gold {
+  background: rgba(201, 168, 76, 0.07);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 168, 76, 0.18);
+}
+
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c9a84c, transparent);
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.7s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.animate-slide-left {
+  animation: slideInLeft 0.6s ease forwards;
+}
+
+.animate-pulse-gold {
+  animation: pulse-gold 2s ease-in-out infinite;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+}
+
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding { padding-top: 7rem; padding-bottom: 7rem; }
+}
+
+@media (min-width: 1024px) {
+  .section-padding { padding-top: 9rem; padding-bottom: 9rem; }
+}
+
+.container-custom {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+@media (min-width: 1024px) {
+  .container-custom { padding-left: 2.5rem; padding-right: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* CSS hover helpers for server components */
+.link-gold {
+  color: #a3a3a3;
+  transition: color 0.2s ease;
+}
+.link-gold:hover { color: #c9a84c; }
+
+.link-white {
+  color: #d4d4d4;
+  transition: color 0.2s ease;
+}
+.link-white:hover { color: #ffffff; }
+
+.card-hover {
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.card-hover:hover {
+  border-color: rgba(201,168,76,0.3) !important;
+  background: rgba(201,168,76,0.05) !important;
+}
+
+.contact-card-whatsapp {
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.contact-card-whatsapp:hover {
+  background: rgba(37,211,102,0.12) !important;
+  border-color: rgba(37,211,102,0.3) !important;
+}
+
+.contact-card-gold {
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.contact-card-gold:hover {
+  background: rgba(201,168,76,0.12) !important;
+  border-color: rgba(201,168,76,0.3) !important;
+}
+
+.social-btn {
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.social-btn:hover {
+  background: rgba(201,168,76,0.15) !important;
+  color: #c9a84c !important;
+}
+
+.blog-card {
+  transition: border-color 0.25s ease;
+}
+.blog-card:hover {
+  border-color: rgba(201,168,76,0.25) !important;
+}
+
+.nav-link-gold {
+  color: #d4d4d4;
+  transition: color 0.2s ease;
+}
+.nav-link-gold:hover { color: #c9a84c; }
+
