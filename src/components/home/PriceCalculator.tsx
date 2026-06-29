@@ -20,7 +20,6 @@ export function PriceCalculator() {
     <section className="section-padding" style={{ background: "#080808" }}>
       <div className="container-custom">
         <SectionTitle
-          label="Калькулятор"
           title="Рассчитайте стоимость поездки"
           subtitle="Выберите автомобиль и время — мы покажем примерную стоимость. Точная цена — после уточнения деталей."
           center

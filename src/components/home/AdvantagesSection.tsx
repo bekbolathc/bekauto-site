@@ -1,127 +1,143 @@
 "use client";
 
-import { SectionTitle } from "@/components/ui/SectionTitle";
+import { motion, useReducedMotion } from "framer-motion";
 
 const advantages = [
   {
     title: "11+ лет опыта",
-    desc: "С 2013 года обслуживаем VIP-клиентов в Алматы. За это время — ни одной жалобы.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <polyline points="9 12 11 14 15 10"/>
-      </svg>
-    ),
+    desc: "С 2013 года обслуживаем VIP-клиентов в Алматы. За это время — ни одной жалобы на качество сервиса.",
+    accent: true,
   },
   {
     title: "Профессиональные водители",
     desc: "Водители в костюмах, знающие город. Проходят ежегодную аттестацию и проверку службой безопасности.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
-      </svg>
-    ),
+    glass: true,
   },
   {
     title: "Пунктуальность",
     desc: "Опоздание водителя — нонсенс для нас. Подача автомобиля точно в указанное время.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-      </svg>
-    ),
   },
   {
     title: "Конфиденциальность",
     desc: "NDA с каждым водителем. Полная конфиденциальность маршрутов и переговоров.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-      </svg>
-    ),
   },
   {
     title: "Встреча с табличкой",
     desc: "Водитель встречает в аэропорту с именной табличкой и помогает с багажом.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19.5 2.5S18 2 16.5 3.5L13 7 4.8 5.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/>
-      </svg>
-    ),
   },
   {
     title: "Вода и Wi-Fi",
-    desc: "На борту всегда: охлаждённая вода, зарядные устройства USB-A/C, Wi-Fi и напитки.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/>
-        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/>
-      </svg>
-    ),
+    desc: "На борту: охлаждённая вода, зарядные устройства USB-A/C и мобильный интернет.",
   },
   {
     title: "Страхование",
-    desc: "Все автомобили застрахованы по КАСКО и ОСАГО. Пассажиры застрахованы от НС.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-    ),
+    desc: "Все автомобили застрахованы по КАСКО и ОСАГО. Пассажиры застрахованы от несчастных случаев.",
   },
   {
     title: "Помощь с багажом",
     desc: "Водитель выходит навстречу и помогает перенести вещи. Удобная посадка гарантирована.",
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 0 1-8 0"/>
-      </svg>
-    ),
   },
 ];
 
+function AdvantageTile({
+  adv,
+  index,
+  shouldReduce,
+}: {
+  adv: (typeof advantages)[0];
+  index: number;
+  shouldReduce: boolean | null;
+}) {
+  const bg = adv.accent
+    ? { background: "rgba(201,168,76,0.07)", border: "1px solid rgba(201,168,76,0.18)" }
+    : adv.glass
+    ? { background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.08)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }
+    : { background: "#111111", border: "1px solid #1a1a1a" };
+
+  return (
+    <motion.div
+      initial={shouldReduce ? false : { opacity: 0, y: 20 }}
+      whileInView={shouldReduce ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      className="p-6 rounded-2xl h-full"
+      style={bg}
+    >
+      {adv.accent && (
+        <div
+          className="text-5xl font-black mb-3"
+          style={{
+            background: "linear-gradient(135deg, #c9a84c 0%, #e2b96f 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            letterSpacing: "-0.03em",
+          }}
+        >
+          11+
+        </div>
+      )}
+      <h3
+        className="font-semibold text-white mb-2"
+        style={{ fontSize: adv.accent ? "1.1rem" : "0.9375rem" }}
+      >
+        {adv.title}
+      </h3>
+      <p className="text-sm leading-relaxed" style={{ color: "#737373" }}>
+        {adv.desc}
+      </p>
+    </motion.div>
+  );
+}
+
 export function AdvantagesSection() {
+  const shouldReduce = useReducedMotion();
+
+  const [a0, a1, ...rest] = advantages;
+  const row2 = rest.slice(0, 3);
+  const row3 = rest.slice(3, 6);
+
   return (
     <section className="section-padding" style={{ background: "#0a0a0a" }}>
       <div className="container-custom">
-        <SectionTitle
-          label="Почему мы"
-          title="Стандарты которыми мы гордимся"
-          subtitle="Каждая деталь нашей работы — это результат 11 лет совершенствования сервиса мирового уровня."
-          center
-        />
+        {/* Section header — no eyebrow (eyebrow budget saved for Fleet/Reviews/Contact) */}
+        <div className="mb-12 max-w-xl">
+          <h2
+            className="font-bold text-white leading-tight mb-4"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", letterSpacing: "-0.02em" }}
+          >
+            Стандарты, которыми мы гордимся
+          </h2>
+          <p style={{ color: "#737373", lineHeight: "1.7" }}>
+            Каждая деталь нашей работы — результат 11 лет совершенствования сервиса мирового уровня.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {advantages.map((adv, i) => (
-            <div
-              key={adv.title}
-              className="p-6 rounded-2xl group transition-all duration-300"
-              style={{
-                background: "#111111",
-                border: "1px solid #1a1a1a",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = "rgba(201,168,76,0.25)";
-                e.currentTarget.style.background = "#141414";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "#1a1a1a";
-                e.currentTarget.style.background = "#111111";
-              }}
-            >
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: "rgba(201,168,76,0.1)", color: "#c9a84c" }}
-              >
-                {adv.icon}
-              </div>
-              <h3 className="font-semibold text-white text-sm mb-2">{adv.title}</h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#737373" }}>
-                {adv.desc}
-              </p>
+        {/* Bento grid: row1 = 2/3 + 1/3, row2 = 3 equal, row3 = 3 equal */}
+        <div className="grid grid-cols-1 gap-4">
+          {/* Row 1 */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-2">
+              <AdvantageTile adv={a0} index={0} shouldReduce={shouldReduce} />
             </div>
-          ))}
+            <div>
+              <AdvantageTile adv={a1} index={1} shouldReduce={shouldReduce} />
+            </div>
+          </div>
+
+          {/* Row 2 */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {row2.map((adv, i) => (
+              <AdvantageTile key={adv.title} adv={adv} index={i + 2} shouldReduce={shouldReduce} />
+            ))}
+          </div>
+
+          {/* Row 3 */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {row3.map((adv, i) => (
+              <AdvantageTile key={adv.title} adv={adv} index={i + 5} shouldReduce={shouldReduce} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
