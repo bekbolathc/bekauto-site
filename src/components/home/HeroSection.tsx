@@ -15,20 +15,30 @@ export function HeroSection() {
       aria-label="Главный баннер"
     >
       {/* Background */}
-      <div className="absolute inset-0" style={{ background: "#0a0a0a" }}>
+      <div className="absolute inset-0" style={{ background: "#080808" }}>
+        {/* Warm gold radial glow — right column where photo sits */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 65% 90% at 80% 50%, rgba(201,168,76,0.07) 0%, transparent 65%)",
+              "radial-gradient(ellipse 70% 80% at 78% 50%, rgba(201,168,76,0.11) 0%, rgba(201,168,76,0.03) 45%, transparent 70%)",
           }}
         />
+        {/* Secondary cool shadow on left — creates separation */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(ellipse 50% 60% at 10% 80%, rgba(10,10,10,0.8) 0%, transparent 60%)",
+          }}
+        />
+        {/* Subtle grid */}
         <div
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
+              "linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px)",
+            backgroundSize: "80px 80px",
           }}
         />
       </div>
@@ -55,13 +65,15 @@ export function HeroSection() {
             Алматы · VIP-трансфер с 2013 года
           </div>
 
-          {/* H1 */}
+          {/* H1 — Playfair Display serif for luxury character */}
           <h1
-            className="font-black text-white mb-6"
+            className="text-white mb-6"
             style={{
-              fontSize: "clamp(2.75rem, 5vw, 4.5rem)",
-              letterSpacing: "-0.03em",
-              lineHeight: "1.04",
+              fontFamily: "var(--font-display)",
+              fontWeight: 700,
+              fontSize: "clamp(2.75rem, 5vw, 4.75rem)",
+              letterSpacing: "-0.02em",
+              lineHeight: "1.06",
               opacity: mounted ? 1 : 0,
               transform: mounted ? "none" : "translateY(16px)",
               transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
@@ -69,7 +81,12 @@ export function HeroSection() {
           >
             Аренда авто
             <br />
-            <span className="gold-text">с водителем</span>
+            <span
+              className="gold-text"
+              style={{ fontStyle: "italic" }}
+            >
+              с водителем
+            </span>
             <br />
             в Алматы
           </h1>

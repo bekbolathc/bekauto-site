@@ -65,13 +65,14 @@ function AdvantageTile({
     >
       {adv.accent && (
         <div
-          className="text-5xl font-black mb-3"
+          className="font-black mb-4 leading-none"
           style={{
-            background: "linear-gradient(135deg, #c9a84c 0%, #e2b96f 100%)",
+            fontSize: "clamp(4rem, 8vw, 6.5rem)",
+            background: "linear-gradient(135deg, #c9a84c 0%, #e2b96f 60%, #c9a84c 100%)",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             backgroundClip: "text",
-            letterSpacing: "-0.03em",
+            letterSpacing: "-0.04em",
           }}
         >
           11+
@@ -100,17 +101,21 @@ export function AdvantagesSection() {
   return (
     <section className="section-padding" style={{ background: "#0a0a0a" }}>
       <div className="container-custom">
-        {/* Section header — no eyebrow (eyebrow budget saved for Fleet/Reviews/Contact) */}
-        <div className="mb-12 max-w-xl">
-          <h2
-            className="font-bold text-white leading-tight mb-4"
-            style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", letterSpacing: "-0.02em" }}
-          >
-            Стандарты, которыми мы гордимся
-          </h2>
-          <p style={{ color: "#737373", lineHeight: "1.7" }}>
-            Каждая деталь нашей работы — результат 11 лет совершенствования сервиса мирового уровня.
-          </p>
+        {/* Section header */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end mb-12">
+          <div>
+            <h2
+              className="font-bold text-white leading-tight"
+              style={{ fontSize: "clamp(1.875rem, 4vw, 2.75rem)", letterSpacing: "-0.025em" }}
+            >
+              Стандарты,<br />которыми мы гордимся
+            </h2>
+          </div>
+          <div>
+            <p style={{ color: "#737373", lineHeight: "1.7" }}>
+              Каждая деталь нашей работы — результат 11 лет совершенствования сервиса мирового уровня.
+            </p>
+          </div>
         </div>
 
         {/* Bento grid: row1 = 2/3 + 1/3, row2 = 3 equal, row3 = 3 equal */}

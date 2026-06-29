@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { COMPANY } from "@/lib/utils";
 
 const steps = [
@@ -21,31 +24,47 @@ const steps = [
 ];
 
 export function HowItWorksSection() {
+  const shouldReduce = useReducedMotion();
+
   return (
     <section className="section-padding" style={{ background: "#080808" }}>
       <div className="container-custom">
         {/* Header */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-end mb-14">
-          <div>
+          <motion.div
+            initial={shouldReduce ? false : { opacity: 0, y: 24 }}
+            whileInView={shouldReduce ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          >
             <h2
               className="font-bold text-white leading-tight"
               style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", letterSpacing: "-0.02em" }}
             >
               Как это работает
             </h2>
-          </div>
-          <div>
+          </motion.div>
+          <motion.div
+            initial={shouldReduce ? false : { opacity: 0, y: 24 }}
+            whileInView={shouldReduce ? {} : { opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          >
             <p style={{ color: "#737373", lineHeight: "1.7" }}>
               Заказать автомобиль с водителем — просто. Вся коммуникация через WhatsApp или звонок.
             </p>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Steps — 2x2 grid with left-border accent, no numbered circles */}
+        {/* Steps — 2×2 grid, gold left-border accent */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-14">
-          {steps.map((step) => (
-            <div
+          {steps.map((step, i) => (
+            <motion.div
               key={step.title}
+              initial={shouldReduce ? false : { opacity: 0, x: i % 2 === 0 ? -16 : 16 }}
+              whileInView={shouldReduce ? {} : { opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="pl-6 py-2"
               style={{ borderLeft: "2px solid rgba(201,168,76,0.35)" }}
             >
@@ -58,12 +77,18 @@ export function HowItWorksSection() {
               <p className="text-sm leading-relaxed" style={{ color: "#737373" }}>
                 {step.desc}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-4">
+        <motion.div
+          initial={shouldReduce ? false : { opacity: 0, y: 16 }}
+          whileInView={shouldReduce ? {} : { opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.55, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row gap-4"
+        >
           <a
             href={COMPANY.whatsappUrl}
             target="_blank"
@@ -80,7 +105,7 @@ export function HowItWorksSection() {
           >
             Позвонить: {COMPANY.phone}
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

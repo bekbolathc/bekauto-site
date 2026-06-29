@@ -83,7 +83,7 @@ export function FleetSection() {
                 }}
               >
                 {/* Car image */}
-                <div className="relative overflow-hidden" style={{ height: "240px" }}>
+                <div className="relative overflow-hidden" style={{ height: "280px" }}>
                   <Image
                     src={carImages[vehicle.slug] ?? `https://picsum.photos/seed/${vehicle.slug}/800/450`}
                     alt={vehicle.name}
